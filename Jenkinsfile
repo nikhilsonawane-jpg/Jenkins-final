@@ -20,6 +20,30 @@
 
 // ----------- PARAMETERIZED PIPELINE-----------
 
+// pipeline {
+//     agent { label 'node1' }
+    
+//     parameters {
+//         string(name: 'APP_VERSION', defaultValue: '1.0', description: 'Application version')
+//         choice(name: 'ENV', choices: ['Prod', 'ENF'], description: 'Deployment environment')
+//     }
+    
+//     stages {
+//         stage('Print Parameters') {
+//             when{
+//                 expression{
+//                     params.APP_VERSION == '100'
+//                 }
+//             }
+//             steps {
+//                 echo "Version: ${params.APP_VERSION}"
+//                 echo "Environment: ${params.ENV}"
+//             }
+//         } 
+//     }
+// }
+
+
 pipeline {
     agent { label 'node1' }
     
@@ -29,22 +53,19 @@ pipeline {
     }
     
     stages {
-        stage('Print Parameters') {
-            // when{
-            //     expression{
-            //         params.APP_VERSION == 100
-            //     }
-            // }
-
+        stage('Validate and Print') {
             steps {
-                            script {
-            if (params.APP_VERSION != '100') {
-                // This will force the pipeline to stop and turn RED
-                error "Invalid Environment: ${params.APP_VERSION}. Stopping the build!"
+                script {
+                    // Note the quotes around '100'
+                    if (params.APP_VERSION != '100') {
+                        error "Build Stopped: Version ${params.APP_VERSION} is not authorized. Only version 100 is allowed!"
+                    }
+                    
+                    // These only run if the error above wasn't triggered
+                    echo "Version: ${params.APP_VERSION}"
+                    echo "Environment: ${params.ENV}"
+                }
             }
-                echo "Version: ${params.APP_VERSION}"
-                echo "Environment: ${params.ENV}"
-            }
-        } 
+        }
     }
 }
