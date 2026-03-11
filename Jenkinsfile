@@ -9,6 +9,7 @@ pipeline{
     }
     stage('run application'){
       steps{
+        sh 'chmod +x app.sh'
         sh 'sudo ./app.sh'
       }
     }
