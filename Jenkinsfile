@@ -3,7 +3,7 @@ pipeline{
   stages{
     stage('pull code'){
       steps{
-      checkout SCM
+      checkout scm
       echo 'pulling code'
     }
     }
