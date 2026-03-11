@@ -6,4 +6,4 @@ echo '<!DOCTYPE html>
 <body>
   <h1>Hello from Jenkins Docker Pipeline 🚀</h1>
 </body>
-</html>' | sudo tee /var/www/html/index.index
+</html>' | sudo tee /var/www/html/index.html
