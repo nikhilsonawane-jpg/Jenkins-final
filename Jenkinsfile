@@ -30,6 +30,11 @@ pipeline {
     
     stages {
         stage('Print Parameters') {
+            when{
+                expression{
+                    params.APP_VERSION == 100
+                }
+            }
             steps {
                 echo "Version: ${params.APP_VERSION}"
                 echo "Environment: ${params.ENV}"
