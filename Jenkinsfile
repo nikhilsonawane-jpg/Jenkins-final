@@ -9,7 +9,7 @@ pipeline{
     }
     stage('run application'){
       steps{
-        sh 'bash app.sh'
+        sh './app.sh'
       }
     }
   }
