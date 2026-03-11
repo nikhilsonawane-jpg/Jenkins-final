@@ -24,7 +24,7 @@ pipeline{
   agent {label 'node1'}
   parameters{
     string(name: APP_VERSION , defaultValue: 1.0 , description: 'Application version')
-    choices(name: ENV , choice: ['Prod', 'ENF'], description: 'Deployment environment')
+    choice(name: ENV , choice: ['Prod', 'ENF'], description: 'Deployment environment')
   }
   stages{
         stage('Print Parameters') {
