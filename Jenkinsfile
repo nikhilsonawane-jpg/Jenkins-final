@@ -30,10 +30,15 @@ pipeline {
     
     stages {
         stage('Print Parameters') {
-            when{
-                expression{
-                    params.APP_VERSION == 100
-                }
+            // when{
+            //     expression{
+            //         params.APP_VERSION == 100
+            //     }
+            // }
+            script {
+            if (params.APP_VERSION != 100) {
+                // This will force the pipeline to stop and turn RED
+                error "Invalid Environment: ${params.APP_VERSION}. Stopping the build!"
             }
             steps {
                 echo "Version: ${params.APP_VERSION}"
