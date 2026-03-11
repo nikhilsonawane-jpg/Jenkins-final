@@ -20,28 +20,28 @@
 
 // ----------- PARAMETERIZED PIPELINE-----------
 
-// pipeline {
-//     agent { label 'node1' }
+pipeline {
+    agent { label 'node1' }
     
-//     parameters {
-//         string(name: 'APP_VERSION', defaultValue: '1.0', description: 'Application version')
-//         choice(name: 'ENV', choices: ['Prod', 'ENF'], description: 'Deployment environment')
-//     }
+    parameters {
+        string(name: 'APP_VERSION', defaultValue: '1.0', description: 'Application version')
+        choice(name: 'ENV', choices: ['Prod', 'ENF'], description: 'Deployment environment')
+    }
     
-//     stages {
-//         stage('Print Parameters') {
-//             when{
-//                 expression{
-//                     params.APP_VERSION == '100'
-//                 }
-//             }
-//             steps {
-//                 echo "Version: ${params.APP_VERSION}"
-//                 echo "Environment: ${params.ENV}"
-//             }
-//         } 
-//     }
-// }
+    stages {
+        stage('Print Parameters') {
+            when{
+                expression{
+                    params.APP_VERSION == '100'
+                }
+            }
+            steps {
+                echo "Version: ${params.APP_VERSION}"
+                echo "Environment: ${params.ENV}"
+            }
+        } 
+    }
+}
 
 
 // ----------- PARAMETERIZED PIPELINE WITH ERRORS-----------
