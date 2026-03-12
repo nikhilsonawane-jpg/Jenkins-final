@@ -139,7 +139,7 @@ pipeline {
 
         stage('Approval') {
             steps {
-                input message: "Approve production deployment?"
+                input message: "Approve?"
             }
         }
 
