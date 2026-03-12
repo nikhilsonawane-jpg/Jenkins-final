@@ -202,16 +202,28 @@ pipeline {
             // All logic must be inside 'steps'
             steps {
                 script {
+                    // def userInput = input(
+                    //     id: 'confirm',
+                    //     message: 'Promote to Production?',
+                    //     submitter: 'admin,nikhil', // Fixed submitter syntax
+                    //     parameters: [
+                    //         string(name: 'RELEASE_NOTE', defaultValue: '', description: 'Reason for this release'),
+                    //         choice(name: 'APPROVER', choices: ['Nikhil', 'Manager'], description: 'Who is approving?')
+                    //     ]
+                    // )
+                    // echo "Release approved by: ${userInput.APPROVER}"
+                    // echo "Notes: ${userInput.RELEASE_NOTE}"
+
                     def userInput = input(
-                        id: 'confirm',
                         message: 'Promote to Production?',
-                        submitter: 'admin,nikhil', // Fixed submitter syntax
+                        submitter: 'admin,nikhil',
+                        submitterParameter: 'APPROVED_BY',
                         parameters: [
-                            string(name: 'RELEASE_NOTE', defaultValue: '', description: 'Reason for this release'),
-                            choice(name: 'APPROVER', choices: ['Nikhil', 'Manager'], description: 'Who is approving?')
+                            string(name: 'RELEASE_NOTE', defaultValue: '', description: 'Reason for release')
                         ]
                     )
-                    echo "Release approved by: ${userInput.APPROVER}"
+
+                    echo "Approved by: ${userInput.APPROVED_BY}"
                     echo "Notes: ${userInput.RELEASE_NOTE}"
                 }
             }
