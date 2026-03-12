@@ -199,7 +199,7 @@ pipeline {
     stages {
         stage('deployment gate') {
 
-            steps 2{
+            steps {
                 script {
                     // def userInput = input(
                     //     id: 'confirm',
@@ -214,7 +214,7 @@ pipeline {
                     // echo "Notes: ${userInput.RELEASE_NOTE}"
                     // ----or-------
                 //     def userInput = input(
-                           id: 'approval',
+                //           id: 'approval',
                 //         message: 'Promote to Production?',
                 //         submitter: 'admin,nikhil',
                 //         submitterParameter: 'APPROVED_BY',
