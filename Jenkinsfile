@@ -163,7 +163,7 @@ pipeline{
     stages{
         stage('Initial Approval'){
             steps{
-            input message: 'Deploy?', id: '1' submitter: 'admin,nikhil'
+            input message: 'Deploy?', id: '1', submitter: 'admin,nikhil'
             }
         }
         stage('deployment gate'){
