@@ -155,114 +155,114 @@
 
 // ---------------- parameterized input ----------------
 
-pipeline{
-    agent any
-         options{
-            timeout(time: 1, unit: 'MINUTES')
-            }
-    stages{
-        stage('Initial Approval'){
-            steps{
-            input message: 'Deploy?', id: '1', submitter: 'admin'
-            }
-        }
-        stage('deployment gate'){
-            steps{
-            script{
-                def userInput = input(
-                id: 'confirm',
-                message: 'Promote to Production?',
-                parameters: [
-                    string(name: 'RELEASE_NOTE', defaultValue: '', description: 'Reason for this release'),
-                    choice(name: 'APPROVER', choices: ['Nikhil', 'Manager'], description: 'Who is approving?')
-                ]
-            )
-            // Accessing the values provided during the pause
-            echo "Release approved by: ${userInput.APPROVER}"
-            echo "Notes: ${userInput.RELEASE_NOTE}"
-            }
-            }
+// pipeline{
+//     agent any
+//          options{
+//             timeout(time: 1, unit: 'MINUTES')
+//             }
+//     stages{
+//         stage('Initial Approval'){
+//             steps{
+//             input message: 'Deploy?', id: '1', submitter: 'admin,nikhil'
+//             }
+//         }
+//         stage('deployment gate'){
+//             steps{
+//             script{
+//                 def userInput = input(
+//                 id: 'confirm',
+//                 message: 'Promote to Production?',
+//                 parameters: [
+//                     string(name: 'RELEASE_NOTE', defaultValue: '', description: 'Reason for this release'),
+//                     choice(name: 'APPROVER', choices: ['Nikhil', 'Manager'], description: 'Who is approving?')
+//                 ]
+//             )
+//             // Accessing the values provided during the pause
+//             echo "Release approved by: ${userInput.APPROVER}"
+//             echo "Notes: ${userInput.RELEASE_NOTE}"
+//             }
+//             }
             
                 
-            }
-        }
-    }
-
-// ------------------ parameterized verified input -------------------
-// pipeline {
-//     agent any
-    
-//     options {
-//         timeout(time: 1, unit: 'MINUTES') 
-//     }
-
-//     stages {
-//         stage('deployment gate') {
-
-//             steps {
-//                 script {
-//                     // def userInput = input(
-//                     //     id: 'confirm',
-//                     //     message: 'Promote to Production?',
-//                     //     submitter: 'admin,nikhil', // Fixed submitter syntax
-//                     //     parameters: [
-//                     //         string(name: 'RELEASE_NOTE', defaultValue: '', description: 'Reason for this release'),
-//                     //         choice(name: 'APPROVER', choices: ['Nikhil', 'Manager'], description: 'Who is approving?')
-//                     //     ]
-//                     // )
-//                     // echo "Release approved by: ${userInput.APPROVER}"
-//                     // echo "Notes: ${userInput.RELEASE_NOTE}"
-//                     // ----or-------
-//                 //     def userInput = input(
-                  //          id: 'approval',
-//                 //         message: 'Promote to Production?',
-//                 //         submitter: 'admin,nikhil',
-//                 //         submitterParameter: 'APPROVED_BY',
-//                 //         parameters: [
-//                 //             string(name: 'RELEASE_NOTE', defaultValue: '', description: 'Reason for release'),
-//                 //             choice(name: 'APPROVER', choices: ['Nikhil', 'Manager'], description: 'Who is approving?')
-//                 //         ]
-//                 //     )
-//                 //     if (userInput.APPROVER == 'Manager' && userInput.APPROVED_BY != 'Manager') {
-//                 //     error "Security Violation: User ${userInput.APPROVED_BY} tried to approve as a Manager!"
-//                 // }
-
-//                 //     echo "Approved by: ${userInput.APPROVED_BY}"
-//                 //     echo "Notes: ${userInput.RELEASE_NOTE}"
-//                     // ----------or---------
-
-//                     def rolePermissions = [
-//                     'Manager' : 'admin',
-//                     'Lead'    : 'nikhil',
-//                     'Trainee' : 'intern_user',
-//                     'Nikhil'  : 'nikhil'
-//                     ]
-
-//                     def userInput = input(
-                   //  id: 'approval',
-//                     message: 'Promote to Production?',
-//                     submitter: 'admin,nikhil,intern_user', 
-//                     submitterParameter: 'REAL_USER',
-//                     parameters: [
-//                     choice(name: 'ROLE', 
-//                     choices: ['Nikhil', 'Manager', 'Lead', 'Trainee'], 
-//                     description: 'Select your authorized role')
-//                     ]
-//                 )
-
-
-
-//                 def authorizedUser = rolePermissions[userInput.ROLE]
-
-//                 if (userInput.REAL_USER != authorizedUser) {
-//                    error "Security Violation: ${userInput.REAL_USER} is not authorized to approve as ${userInput.ROLE}. Required user: ${authorizedUser}"
-//                 }
-
-//                 echo "Verified: ${userInput.REAL_USER} approved as ${userInput.ROLE}"
-
-
-//                 }
 //             }
 //         }
 //     }
-// }
+
+// ------------------ parameterized verified input -------------------
+pipeline {
+    agent any
+    
+    options {
+        timeout(time: 1, unit: 'MINUTES') 
+    }
+
+    stages {
+        stage('deployment gate') {
+
+            steps 2{
+                script {
+                    // def userInput = input(
+                    //     id: 'confirm',
+                    //     message: 'Promote to Production?',
+                    //     submitter: 'admin,nikhil', // Fixed submitter syntax
+                    //     parameters: [
+                    //         string(name: 'RELEASE_NOTE', defaultValue: '', description: 'Reason for this release'),
+                    //         choice(name: 'APPROVER', choices: ['Nikhil', 'Manager'], description: 'Who is approving?')
+                    //     ]
+                    // )
+                    // echo "Release approved by: ${userInput.APPROVER}"
+                    // echo "Notes: ${userInput.RELEASE_NOTE}"
+                    // ----or-------
+                //     def userInput = input(
+                           id: 'approval',
+                //         message: 'Promote to Production?',
+                //         submitter: 'admin,nikhil',
+                //         submitterParameter: 'APPROVED_BY',
+                //         parameters: [
+                //             string(name: 'RELEASE_NOTE', defaultValue: '', description: 'Reason for release'),
+                //             choice(name: 'APPROVER', choices: ['Nikhil', 'Manager'], description: 'Who is approving?')
+                //         ]
+                //     )
+                //     if (userInput.APPROVER == 'Manager' && userInput.APPROVED_BY != 'Manager') {
+                //     error "Security Violation: User ${userInput.APPROVED_BY} tried to approve as a Manager!"
+                // }
+
+                //     echo "Approved by: ${userInput.APPROVED_BY}"
+                //     echo "Notes: ${userInput.RELEASE_NOTE}"
+                    // ----------or---------
+
+                    def rolePermissions = [
+                    'Manager' : 'admin',
+                    'Lead'    : 'nikhil',
+                    'Trainee' : 'intern_user',
+                    'Nikhil'  : 'nikhil'
+                    ]
+
+                    def userInput = input(
+                    id: 'approval',
+                    message: 'Promote to Production?',
+                    submitter: 'admin,intern_user', 
+                    submitterParameter: 'REAL_USER',
+                    parameters: [
+                    choice(name: 'ROLE', 
+                    choices: ['Nikhil', 'Manager', 'Lead', 'Trainee'], 
+                    description: 'Select your authorized role')
+                    ]
+                )
+
+
+
+                def authorizedUser = rolePermissions[userInput.ROLE]
+
+                if (userInput.REAL_USER != authorizedUser) {
+                   error "Security Violation: ${userInput.REAL_USER} is not authorized to approve as ${userInput.ROLE}. Required user: ${authorizedUser}"
+                }
+
+                echo "Verified: ${userInput.REAL_USER} approved as ${userInput.ROLE}"
+
+
+                }
+            }
+        }
+    }
+}
