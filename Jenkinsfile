@@ -219,12 +219,12 @@ pipeline {
                         submitter: 'admin,nikhil',
                         submitterParameter: 'APPROVED_BY',
                         parameters: [
-                            string(name: 'RELEASE_NOTE', defaultValue: '', description: 'Reason for release')
+                            string(name: 'RELEASE_NOTE', defaultValue: '', description: 'Reason for release'),
                             choice(name: 'APPROVER', choices: ['Nikhil', 'Manager'], description: 'Who is approving?')
                         ]
                     )
-                    if (userInput.APPROVER == 'Manager,Nikhil' && userInput.CLICKER_NAME != 'Manager,Nikhil') {
-                    error "Security Violation: User ${userInput.CLICKER_NAME} tried to approve as a Manager!"
+                    if (userInput.APPROVER == 'Manager' && userInput.APPROVED_BY != 'Manager') {
+                    error "Security Violation: User ${userInput.APPROVED_BY} tried to approve as a Manager!"
                 }
 
                     echo "Approved by: ${userInput.APPROVED_BY}"
