@@ -71,3 +71,29 @@ pipeline {
 //         }
 //     }
 // }
+
+// -------------- Matrix (run pipeline on multiple agents) --------------
+
+// pipeline {
+//     agent none
+//     stages {
+//         stage('Deploy Matrix') {
+//             matrix {
+//                 axes {
+//                     axis {
+//                         name 'OS'
+//                         values 'node1', 'built-in'
+//                     }
+//                 }
+//                 stages {
+//                     stage('Deploy') {
+//                         agent { label "${OS}" }
+//                         steps {
+//                             echo "Deploying to agent: ${OS}"
+//                         }
+//                     }
+//                 }
+//             }
+//         }
+//     }
+// }
