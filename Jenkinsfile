@@ -213,22 +213,53 @@ pipeline {
                     // )
                     // echo "Release approved by: ${userInput.APPROVER}"
                     // echo "Notes: ${userInput.RELEASE_NOTE}"
+                    // ----or-------
+                //     def userInput = input(
+                //         message: 'Promote to Production?',
+                //         submitter: 'admin,nikhil',
+                //         submitterParameter: 'APPROVED_BY',
+                //         parameters: [
+                //             string(name: 'RELEASE_NOTE', defaultValue: '', description: 'Reason for release'),
+                //             choice(name: 'APPROVER', choices: ['Nikhil', 'Manager'], description: 'Who is approving?')
+                //         ]
+                //     )
+                //     if (userInput.APPROVER == 'Manager' && userInput.APPROVED_BY != 'Manager') {
+                //     error "Security Violation: User ${userInput.APPROVED_BY} tried to approve as a Manager!"
+                // }
+
+                //     echo "Approved by: ${userInput.APPROVED_BY}"
+                //     echo "Notes: ${userInput.RELEASE_NOTE}"
+                    // ----------or---------
+                    // 1. Define who is allowed to act in which role
+                    def rolePermissions = [
+                    'Manager' : 'admin',
+                    'Lead'    : 'nikhil',
+                    'Trainee' : 'intern_user',
+                    'Nikhil'  : 'nikhil'
+                    ]
 
                     def userInput = input(
-                        message: 'Promote to Production?',
-                        submitter: 'admin,nikhil',
-                        submitterParameter: 'APPROVED_BY',
-                        parameters: [
-                            string(name: 'RELEASE_NOTE', defaultValue: '', description: 'Reason for release'),
-                            choice(name: 'APPROVER', choices: ['Nikhil', 'Manager'], description: 'Who is approving?')
-                        ]
-                    )
-                    if (userInput.APPROVER == 'Manager' && userInput.APPROVED_BY != 'Manager') {
-                    error "Security Violation: User ${userInput.APPROVED_BY} tried to approve as a Manager!"
+                    message: 'Promote to Production?',
+                    submitter: 'admin,nikhil,intern_user', 
+                    submitterParameter: 'REAL_USER',
+                    parameters: [
+                    choice(name: 'ROLE', 
+                    choices: ['Nikhil', 'Manager', 'Lead', 'Trainee'], 
+                    description: 'Select your authorized role')
+                    ]
+                )
+
+                // 2. The Security Check
+                // We look up the REAL_USER required for the selected ROLE
+                def authorizedUser = rolePermissions[userInput.ROLE]
+
+                if (userInput.REAL_USER != authorizedUser) {
+                   error "Security Violation: ${userInput.REAL_USER} is not authorized to approve as ${userInput.ROLE}. Required user: ${authorizedUser}"
                 }
 
-                    echo "Approved by: ${userInput.APPROVED_BY}"
-                    echo "Notes: ${userInput.RELEASE_NOTE}"
+                echo "Verified: ${userInput.REAL_USER} approved as ${userInput.ROLE}"
+
+
                 }
             }
         }
