@@ -155,66 +155,66 @@
 
 // ---------------- parameterized input ----------------
 
-pipeline{
-    agent any
-         options{
-            timeout(time: 1, unit: 'MINUTES')
-            }
-    stages{
-        stage('Initial Approval'){
-            steps{
-            input message: 'Deploy?', submitter: 'admin,nikhil'
-            }
-        }
-        stage('deployment gate'){
-            steps{
-            script{
-                def userInput = input(
-                id: 'confirm',
-                message: 'Promote to Production?',
-                parameters: [
-                    string(name: 'RELEASE_NOTE', defaultValue: '', description: 'Reason for this release'),
-                    choice(name: 'APPROVER', choices: ['Nikhil', 'Manager'], description: 'Who is approving?')
-                ]
-            )
-            // Accessing the values provided during the pause
-            echo "Release approved by: ${userInput.APPROVER}"
-            echo "Notes: ${userInput.RELEASE_NOTE}"
-            }
-            }
+// pipeline{
+//     agent any
+//          options{
+//             timeout(time: 1, unit: 'MINUTES')
+//             }
+//     stages{
+//         stage('Initial Approval'){
+//             steps{
+//             input message: 'Deploy?', submitter: 'admin,nikhil'
+//             }
+//         }
+//         stage('deployment gate'){
+//             steps{
+//             script{
+//                 def userInput = input(
+//                 id: 'confirm',
+//                 message: 'Promote to Production?',
+//                 parameters: [
+//                     string(name: 'RELEASE_NOTE', defaultValue: '', description: 'Reason for this release'),
+//                     choice(name: 'APPROVER', choices: ['Nikhil', 'Manager'], description: 'Who is approving?')
+//                 ]
+//             )
+//             // Accessing the values provided during the pause
+//             echo "Release approved by: ${userInput.APPROVER}"
+//             echo "Notes: ${userInput.RELEASE_NOTE}"
+//             }
+//             }
             
                 
-            }
-        }
-    }
-
-
-// pipeline {
-//     agent any
-    
-//     // Options must be at the pipeline level or inside a stage
-//     options {
-//         timeout(time: 1, unit: 'MINUTES') 
-//     }
-
-//     stages {
-//         stage('deployment gate') {
-//             // All logic must be inside 'steps'
-//             steps {
-//                 script {
-//                     def userInput = input(
-//                         id: 'confirm',
-//                         message: 'Promote to Production?',
-//                         submitter: 'admin,nikhil', // Fixed submitter syntax
-//                         parameters: [
-//                             string(name: 'RELEASE_NOTE', defaultValue: '', description: 'Reason for this release'),
-//                             choice(name: 'APPROVER', choices: ['Nikhil', 'Manager'], description: 'Who is approving?')
-//                         ]
-//                     )
-//                     echo "Release approved by: ${userInput.APPROVER}"
-//                     echo "Notes: ${userInput.RELEASE_NOTE}"
-//                 }
 //             }
 //         }
 //     }
-// }
+
+
+pipeline {
+    agent any
+    
+    // Options must be at the pipeline level or inside a stage
+    options {
+        timeout(time: 1, unit: 'MINUTES') 
+    }
+
+    stages {
+        stage('deployment gate') {
+            // All logic must be inside 'steps'
+            steps {
+                script {
+                    def userInput = input(
+                        id: 'confirm',
+                        message: 'Promote to Production?',
+                        submitter: 'admin,nikhil', // Fixed submitter syntax
+                        parameters: [
+                            string(name: 'RELEASE_NOTE', defaultValue: '', description: 'Reason for this release'),
+                            choice(name: 'APPROVER', choices: ['Nikhil', 'Manager'], description: 'Who is approving?')
+                        ]
+                    )
+                    echo "Release approved by: ${userInput.APPROVER}"
+                    echo "Notes: ${userInput.RELEASE_NOTE}"
+                }
+            }
+        }
+    }
+}
