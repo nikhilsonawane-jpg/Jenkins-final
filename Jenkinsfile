@@ -205,7 +205,7 @@ pipeline {
                     def userInput = input(
                         id: 'confirm',
                         message: 'Promote to Production?',
-                        submitter: 'admin,nikhil', // Fixed submitter syntax
+                        submitter: 'admin', // Fixed submitter syntax
                         parameters: [
                             string(name: 'RELEASE_NOTE', defaultValue: '', description: 'Reason for this release'),
                             choice(name: 'APPROVER', choices: ['Nikhil', 'Manager'], description: 'Who is approving?')
