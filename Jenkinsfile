@@ -170,7 +170,7 @@ pipeline{
             steps{
             script{
                 def userInput = input(
-                id: 'confirm',
+              //  id: 'confirm',
                 message: 'Promote to Production?',
                 parameters: [
                     string(name: 'RELEASE_NOTE', defaultValue: '', description: 'Reason for this release'),
