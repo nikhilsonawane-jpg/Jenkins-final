@@ -97,3 +97,58 @@ pipeline {
 //         }
 //     }
 // }
+
+
+// ------------------- parallel pipeline -----------------
+
+// pipeline{
+//     agent none
+//     stages{
+//         stage('Global Deployment'){
+//         parallel{
+//                 stage('agent 1'){
+//                     agent{label 'built-in'}
+//                     steps{
+//                         echo 'im mac'
+//                     }
+//                 }
+//                 stage('agent 2'){
+//                     agent{label 'node1'}
+//                     steps{
+//                         echo 'im EC2' 
+//                     }
+//                 }
+//             }
+//         }
+//     }
+// }
+
+
+// -------------input ---------------
+pipeline {
+
+    agent any
+
+    stages {
+
+        stage('Build') {
+            steps {
+                echo "Building application"
+            }
+        }
+
+        stage('Approval') {
+            steps {
+                input message: "Approve production deployment?"
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                echo "Deploying to production"
+            }
+        }
+
+    }
+
+}
