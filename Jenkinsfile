@@ -160,7 +160,7 @@ pipeline{
     stages{
         stage('Initial Approval'){
             steps{
-            input message: 'Deploy?', submitter: 'admin','nikhil'
+            input message: 'Deploy?', submitter: 'admin,nikhil'
             }
         }
         stage('deployment gate'){
