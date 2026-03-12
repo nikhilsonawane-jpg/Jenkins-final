@@ -170,7 +170,7 @@ pipeline{
             steps{
             script{
                 def userInput = input(
-              //  id: 'confirm',
+                id: 'confirm',
                 message: 'Promote to Production?',
                 parameters: [
                     string(name: 'RELEASE_NOTE', defaultValue: '', description: 'Reason for this release'),
@@ -214,6 +214,7 @@ pipeline{
 //                     // echo "Notes: ${userInput.RELEASE_NOTE}"
 //                     // ----or-------
 //                 //     def userInput = input(
+                  //          id: 'approval',
 //                 //         message: 'Promote to Production?',
 //                 //         submitter: 'admin,nikhil',
 //                 //         submitterParameter: 'APPROVED_BY',
@@ -238,6 +239,7 @@ pipeline{
 //                     ]
 
 //                     def userInput = input(
+                   //  id: 'approval',
 //                     message: 'Promote to Production?',
 //                     submitter: 'admin,nikhil,intern_user', 
 //                     submitterParameter: 'REAL_USER',
