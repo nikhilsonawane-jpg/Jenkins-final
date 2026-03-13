@@ -285,7 +285,7 @@ pipeline{
             def inputuser = input(
             id: '1',
             message: 'want to approve?',
-            submitter: 'admin,security,CEO',
+            submitter: 'admin,security,CEO,nikhil',
             submitterParameter: "CurrentUser",
             parameters: [
             choice(name: 'role', choices: ['Nikhil','Jinesh','aryan'], description: 'select your role')
