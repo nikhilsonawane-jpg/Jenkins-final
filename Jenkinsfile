@@ -189,18 +189,18 @@
 //     }
 
 // ------------------ parameterized verified input -------------------
-pipeline {
-    agent any
+// pipeline {
+//     agent any
     
-    options {
-        timeout(time: 1, unit: 'MINUTES') 
-    }
+//     options {
+//         timeout(time: 1, unit: 'MINUTES') 
+//     }
 
-    stages {
-        stage('deployment gate') {
+//     stages {
+//         stage('deployment gate') {
 
-            steps {
-                script {
+//             steps {
+//                 script {
                     // def userInput = input(
                     //     id: 'confirm',
                     //     message: 'Promote to Production?',
@@ -231,76 +231,76 @@ pipeline {
                 //     echo "Notes: ${userInput.RELEASE_NOTE}"
                     // ----------or---------
 
-                    def rolePermissions = [
-                    'Manager' : 'admin',
-                    'Lead'    : 'nikhil',
-                    'Trainee' : 'intern_user',
-                    'Nikhil'  : 'nikhil'
-                    ]
+//                     def rolePermissions = [
+//                     'Manager' : 'admin',
+//                     'Lead'    : 'nikhil',
+//                     'Trainee' : 'intern_user',
+//                     'Nikhil'  : 'nikhil'
+//                     ]
 
-                    def userInput = input(
-                    id: 'approval',
-                    message: 'Promote to Production?',
-                    submitter: 'admin,intern_user,nikhil', 
-                    submitterParameter: 'REAL_USER',
-                    parameters: [
-                    choice(name: 'ROLE', 
-                    choices: ['Nikhil', 'Manager', 'Lead', 'Trainee'], 
-                    description: 'Select your authorized role')
-                    ]
-                )
-
-
-
-                def authorizedUser = rolePermissions[userInput.ROLE]
-
-                if (userInput.REAL_USER != authorizedUser) {
-                   error "Security Violation: ${userInput.REAL_USER} is not authorized to approve as ${userInput.ROLE}. Required user: ${authorizedUser}"
-                }
-
-                echo "Verified: ${userInput.REAL_USER} approved as ${userInput.ROLE}"
+//                     def userInput = input(
+//                     id: 'approval',
+//                     message: 'Promote to Production?',
+//                     submitter: 'admin,intern_user,nikhil', 
+//                     submitterParameter: 'REAL_USER',
+//                     parameters: [
+//                     choice(name: 'ROLE', 
+//                     choices: ['Nikhil', 'Manager', 'Lead', 'Trainee'], 
+//                     description: 'Select your authorized role')
+//                     ]
+//                 )
 
 
-                }
-            }
-        }
-    }
-}
 
-// pipeline{
-//     agent {label 'built-in'}
-//     options{
-//         timeout(time: 1, unit: 'MINUTES')
-//     }
-//     stages{
-//       stage('deployment'){
-//         steps{
-//             script{
-//             def list = [
-//             'Nikhil' : 'nikhil',
-//             'Jinesh' : 'security',
-//             'aryant' : 'CEO',
-//             ]
-            
-//             def inputuser = input(
-//             id: '1',
-//             message: 'want to approve?',
-//             submitter: 'admin,security,CEO,nikhil',
-//             submitterParameter: "CurrentUser",
-//             parameters: [
-//             choice(name: 'role', choices: ['Nikhil','Jinesh','aryan'], description: 'select your role')
+//                 def authorizedUser = rolePermissions[userInput.ROLE]
 
-//             ]
-//             )
-            
-//             def auth = list[inputuser.CurrentUser]
-//             if(inputuser.CurrentUser != auth){
-//             error "not auth user"
+//                 if (userInput.REAL_USER != authorizedUser) {
+//                    error "Security Violation: ${userInput.REAL_USER} is not authorized to approve as ${userInput.ROLE}. Required user: ${authorizedUser}"
+//                 }
+
+//                 echo "Verified: ${userInput.REAL_USER} approved as ${userInput.ROLE}"
+
+
+//                 }
 //             }
-//             echo "success"
-//             }
-//         }
 //         }
 //     }
 // }
+
+pipeline{
+    agent {label 'built-in'}
+    options{
+        timeout(time: 1, unit: 'MINUTES')
+    }
+    stages{
+      stage('deployment'){
+        steps{
+            script{
+            def list = [
+            'Nikhil' : 'nikhil',
+            'Jinesh' : 'security',
+            'aryant' : 'CEO',
+            ]
+            
+            def inputuser = input(
+            id: '1',
+            message: 'want to approve?',
+            submitter: 'admin,security,CEO,nikhil',
+            submitterParameter: 'CurrentUser',
+            parameters: [
+            choice(name: 'role', choices: ['Nikhil','Jinesh','aryan'], description: 'select your role')
+
+            ]
+            )
+            
+            def auth = list[inputuser.role]
+            if(inputuser.CurrentUser != auth){
+            error "not auth user"
+            }
+            echo "success"
+            }
+        }
+        }
+    }
+}
         
