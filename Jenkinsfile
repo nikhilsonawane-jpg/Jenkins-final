@@ -189,18 +189,18 @@
 //     }
 
 // ------------------ parameterized verified input -------------------
-pipeline {
-    agent any
+// pipeline {
+//     agent any
     
-    options {
-        timeout(time: 1, unit: 'MINUTES') 
-    }
+//     options {
+//         timeout(time: 1, unit: 'MINUTES') 
+//     }
 
-    stages {
-        stage('deployment gate') {
+//     stages {
+//         stage('deployment gate') {
 
-            steps {
-                script {
+//             steps {
+//                 script {
                     // def userInput = input(
                     //     id: 'confirm',
                     //     message: 'Promote to Production?',
