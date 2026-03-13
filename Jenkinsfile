@@ -241,7 +241,7 @@ pipeline {
                     def userInput = input(
                     id: 'approval',
                     message: 'Promote to Production?',
-                    submitter: 'admin,intern_user', 
+                    submitter: 'admin,intern_user,nikhil', 
                     submitterParameter: 'REAL_USER',
                     parameters: [
                     choice(name: 'ROLE', 
