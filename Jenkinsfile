@@ -276,9 +276,9 @@ pipeline{
       stage{
         steps{
             def list = [
-            'Nikhil' : 'admin'
-            'Jinesh' : 'security'
-            'aryant' : 'CEO'
+            'Nikhil' : 'admin',
+            'Jinesh' : 'security',
+            'aryant' : 'CEO',
             ]
             
             def inputuser = input(
