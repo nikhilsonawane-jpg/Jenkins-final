@@ -294,7 +294,7 @@ pipeline{
             )
             
             def auth = list[inputuser.CurrentUser]
-            if(auth != inputuser.CurrentUser){
+            if(inputuser.CurrentUser != auth){
             error "not auth user"
             }
             echo "success"
