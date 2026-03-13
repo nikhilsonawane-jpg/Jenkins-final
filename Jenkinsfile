@@ -287,7 +287,7 @@ pipeline{
             submitter: 'admin,security,CEO',
             submitterParameter: "CurrentUser",
             parameters: [
-            choice: (name: 'role', choices: ['Nikhil','Jinesh','aryan'], description: 'select your role')
+            choice(name: 'role', choices: ['Nikhil','Jinesh','aryan'], description: 'select your role')
 
             ]
             )
