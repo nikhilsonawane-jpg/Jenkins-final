@@ -296,7 +296,7 @@ pipeline{
             if(auth != inputuser.CurrentUser){
             error "not auth user"
             }
-            echo 'success'
+            echo "success"
             }
         }
     }
