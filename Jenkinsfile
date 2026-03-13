@@ -275,6 +275,7 @@ pipeline{
     stages{
       stage('deployment'){
         steps{
+            script{
             def list = [
             'Nikhil' : 'admin',
             'Jinesh' : 'security',
@@ -298,6 +299,7 @@ pipeline{
             }
             echo "success"
             }
+        }
         }
     }
 }
