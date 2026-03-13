@@ -268,7 +268,7 @@
 // }
 
 pipeline{
-    agent {label 'node1'}
+    agent {label 'built-in'}
     options{
         timeout(time: 1, unit: 'MINUTES')
     }
