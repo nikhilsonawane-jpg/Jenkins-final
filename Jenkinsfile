@@ -277,7 +277,7 @@ pipeline{
         steps{
             script{
             def list = [
-            'Nikhil' : 'admin',
+            'Nikhil' : 'nikhil',
             'Jinesh' : 'security',
             'aryant' : 'CEO',
             ]
