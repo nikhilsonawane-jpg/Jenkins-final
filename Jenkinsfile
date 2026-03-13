@@ -273,7 +273,7 @@ pipeline{
         timeout(time: 1, unit: 'MINUTES')
     }
     stages{
-      stage{
+      stage('deployment'){
         steps{
             def list = [
             'Nikhil' : 'admin',
