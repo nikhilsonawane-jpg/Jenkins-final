@@ -297,9 +297,21 @@ pipeline{
             if(inputuser.CurrentUser != auth){
             error "not auth user"
             }
+
+      // --- ARTIFACT GENERATION START ---
+            echo "Creating deployment report..."
+            sh "echo 'Deployment approved by ${inputuser.CurrentUser} as ${inputuser.role}' > deploy-report.txt"
+            sh "echo 'Timestamp: \$(date)' >> deploy-report.txt"
+                    // --- ARTIFACT GENERATION END ---
             echo "success"
             }
         }
+        }
+    }
+    post {
+        success {
+            // This saves the file to the Jenkins master so you can download it later
+            archiveArtifacts artifacts: 'deploy-report.txt', fingerprint: true
         }
     }
 }
