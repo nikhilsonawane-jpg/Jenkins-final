@@ -309,9 +309,22 @@ pipeline{
         }
     }
     post {
+
         success {
-            // This saves the file to the Jenkins master so you can download it later
             archiveArtifacts artifacts: 'deploy-report.txt', fingerprint: true
+            emailext (
+                subject: "SUCCESS: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
+                body: """Check console output at ${env.BUILD_URL}""",
+                to: 'nikhil@example.com'
+            )
+            }
+       failure {
+            emailext (
+                subject: "FAILURE: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
+                body: """Build failed. Review logs at: ${env.BUILD_URL}""",
+                to: 'nikhil@example.com',
+                attachLog: true // Sends the log file to help you debug quickly
+            )
         }
     }
 }
