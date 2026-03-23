@@ -319,14 +319,14 @@ pipeline{
                emailext body: 'testing', subject: 'Hello', to: 'foxtrot.g4ming@gmail.com'
             
             }
-       failure {
-            // emailext 
-            //     subject: "FAILURE: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
-            //     body: """Build failed. Review logs at: ${env.BUILD_URL}""",
-            //     to: 'foxtrot.g4ming@gmail.com',
-            //     attachLog: true // Sends the log file to help you debug quickly
+       // failure {
+       //      // emailext 
+       //      //     subject: "FAILURE: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
+       //      //     body: """Build failed. Review logs at: ${env.BUILD_URL}""",
+       //      //     to: 'foxtrot.g4ming@gmail.com',
+       //      //     attachLog: true // Sends the log file to help you debug quickly
             
-        }
+       //  }
     }
 }
         
