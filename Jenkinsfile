@@ -312,18 +312,19 @@ pipeline{
 
         success {
             archiveArtifacts artifacts: 'deploy-report.txt', fingerprint: true
-            emailext 
-                subject: "SUCCESS: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
-                body: """Check console output at ${env.BUILD_URL}""",
-                to: 'foxtrot.g4ming@gmail.com'
+            // emailext 
+            //     subject: "SUCCESS: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
+            //     body: """Check console output at ${env.BUILD_URL}""",
+            //     to: 'foxtrot.g4ming@gmail.com'
+               emailext body: 'testing', subject: 'Hello', to: 'foxtrot.g4ming@gmail.com'
             
             }
        failure {
-            emailext 
-                subject: "FAILURE: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
-                body: """Build failed. Review logs at: ${env.BUILD_URL}""",
-                to: 'foxtrot.g4ming@gmail.com',
-                attachLog: true // Sends the log file to help you debug quickly
+            // emailext 
+            //     subject: "FAILURE: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
+            //     body: """Build failed. Review logs at: ${env.BUILD_URL}""",
+            //     to: 'foxtrot.g4ming@gmail.com',
+            //     attachLog: true // Sends the log file to help you debug quickly
             
         }
     }
